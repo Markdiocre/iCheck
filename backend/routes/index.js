@@ -1,7 +1,7 @@
-var mysql = require('mysql')
+const mysql = require('mysql')
 const config = require('../connection/connection');
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
@@ -11,10 +11,12 @@ router.get('/', async function(req, res, next) {
 
   connection.query(sql, function (error, results, fields) {
     if (error) throw error;
-    res.send(results[0])
+    res.send(encrypt(results[0]))
   });
   
   connection.end();
 });
+
+  
 
 module.exports = router;

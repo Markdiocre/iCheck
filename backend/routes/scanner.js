@@ -1,8 +1,15 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const mysql = require('mysql')
+const config = require('../connection/connection');
 
 router.post('/', function(req,res){
-    res.send(req.body)
+    if(req.body.message == 'true'){
+        res.send({"message":"ok"})
+    }else{
+        res.send({"message":"not"})
+    }
+    
 });
 
 module.exports = router;
