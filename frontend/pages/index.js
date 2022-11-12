@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import logo from "../public/iCheck-logo.png";
 import styles from "../styles/index.module.css";
 import React from "react";
+import Link from 'next/link'
 
 const Viewport = ({ w }) => {
   if (w < 900) {
@@ -25,7 +26,9 @@ const Mobile = () => {
             type="password"
             placeholder="Password"
           />
-          <div className={styles.login_btn}>Login</div>
+          <div className={styles.login_btn}>
+            <Link href ="/home">Login</Link>
+            </div>
         </div>
       </div>
       <br />
