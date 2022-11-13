@@ -19,7 +19,7 @@ const Mobile = () => {
   return (
     <div className="">
       <div className={styles.Header}>
-        <Image src={logo} width={250} height={76} />
+        <Image src={logo} width={400} height={125} />
       </div>
       <div className={styles.outer}>
         <div className={styles.inner + " " + styles.cover}>
@@ -98,6 +98,9 @@ const Desktop = () => {
               />
             </svg>
           </div>
+          <div className={styles.login_btn2}>
+            <Link href ="/home">Login</Link>
+            </div>
         </div>
       </div>
 

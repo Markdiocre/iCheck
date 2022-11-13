@@ -179,3 +179,23 @@
     margin: 5%;
     justify-content: space-around;
 }
+
+.genQR{
+    background-color: #2AAA8A;  
+    font-size: 2rem;
+    color: white;
+}
+.Submit{
+    background-color: rgb(00, 96, 96);
+    font-size: 2rem;
+    color: white;
+    border-radius: 30px;
+    width: 30%;
+
+  }
+
+.Submitbg{
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px;
+}

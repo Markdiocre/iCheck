@@ -126,9 +126,11 @@
 
   .Header {
     background-color: #45fdba;
-    padding-left: 10%;
+  
     padding-top: 150px;
     padding-bottom: 100px;
+    display: flex;
+    justify-content: center;
   }
 }
 
@@ -141,6 +143,21 @@
     position: absolute;
     top: 0px;
     z-index: -1;
+  }
+  .login_btn2{
+  
+    background-color: rgb(00, 96, 96);
+    color: white;
+    text-align: center;
+    font-size: 5vh;
+    border-top-left-radius: 60em;
+    border-bottom-right-radius: 60em;
+    border-bottom-left-radius: 60em;
+    border-top-right-radius: 60em;
+    cursor: pointer;
+    transition: 0.5s;
+    margin-bottom: 5%;
+    margin-top: 5%;
   }
   .item {
     background-color: #00dda8;
@@ -214,7 +231,9 @@
   }
   .welcome {
     color: #ffff;
+    margin-left: 20%;
     margin-top: 80%;
+    width: 100%
     /* margin-bottom: ; */
   }
 }
@@ -387,6 +406,7 @@
   .welcome {
     color: #ffff;
     margin-top: 80%;
+    margin-left: 20%;
     /* margin-bottom: ; */
   }
 }
