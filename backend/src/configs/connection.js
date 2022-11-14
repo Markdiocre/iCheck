@@ -5,7 +5,4 @@ const config = {
     database: 'icheck'
 }
 
-
-
-
 module.exports = config;
