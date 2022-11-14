@@ -8,6 +8,7 @@ const router = express.Router();
 const scannerRouter = require('./service/scanner');
 const authRouter = require('./auth/auth');
 const studentRouter = require('./routes/student')
+const healthCheckRouter = require('./routes/health_check')
 
 /* GET home page. */
 // router.get('/', async function(req, res, next) {
@@ -26,6 +27,7 @@ const studentRouter = require('./routes/student')
 router.use('/scan', scannerRouter)
 router.use('/auth', authRouter)
 router.use('/student', studentRouter)
+router.use('/health_check', healthCheckRouter)
 
 
 
