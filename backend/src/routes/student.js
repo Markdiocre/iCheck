@@ -45,7 +45,7 @@ router.post('/', async (req, res)=>{
 router.get('/', async (req, res)=>{
     try{
         const connection = await mysql.createConnection(config);
-        const sql = 'SELECT student_number,student_fname,student_lname FROM student';
+        const sql = 'SELECT student_number,student_fname,student_lname, student_password FROM student';
         connection.query(sql, (error, results)=>{
             if(error){
                 res.status(400).send(response_payload(null, "Error", "Failed to read Data"))
