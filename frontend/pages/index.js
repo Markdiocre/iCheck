@@ -8,7 +8,7 @@ export default function Home() {
       <div className={styles.Header}>
         <Image src="/iCheck-logo.png" width={250} height={76} />
       </div>
-      <div classname={styles.outer}>
+      <div className={styles.outer}>
         <div className={styles.inner + " " + styles.cover}>
           <input className={styles.input} type="text" placeholder="User" />
 
