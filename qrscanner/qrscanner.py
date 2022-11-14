@@ -4,16 +4,14 @@ import cv2 as cv
 import time
 import requests
 import json
-from playsound import playsound
 
 def check_qr(qr_data):
     base_url = 'http://localhost:3000/scan'
     r = requests.post(base_url,json=json.loads(qr_data))
+    print(r.text)
     
-    if json.loads(r.text)["message"] == 'ok':
-    	playsound('in.mp3')
-    else:
-        playsound('out.mp3')
+    
+
 
 def main():
     cap = cv.VideoCapture(0)
