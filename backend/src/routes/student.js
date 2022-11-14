@@ -6,9 +6,10 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 
 const {response_payload} = require('../methods/global')
+const {authenticateToken} = require('../middlewares/token')
 
 /** Create Student */
-router.post('/', async (req, res)=>{
+router.post('/', authenticateToken, async (req, res)=>{
     try{
         const connection = await mysql.createConnection(config);
         const sql = 'INSERT INTO student(`student_number`,`student_fname`,`student_lname`,`student_password`) VALUES(?,?,?,?)';
@@ -42,7 +43,7 @@ router.post('/', async (req, res)=>{
 })
 
 /** Read all student */
-router.get('/', async (req, res)=>{
+router.get('/', authenticateToken, async (req, res)=>{
     try{
         const connection = await mysql.createConnection(config);
         const sql = 'SELECT student_number,student_fname,student_lname, student_password FROM student';
@@ -62,7 +63,7 @@ router.get('/', async (req, res)=>{
 
 
 /** Read Specific */
-router.get('/:student_number', async (req, res)=>{
+router.get('/:student_number', authenticateToken, async (req, res)=>{
     try{
         let stud_num = req.params.student_number
         const connection = await mysql.createConnection(config);
@@ -84,7 +85,7 @@ router.get('/:student_number', async (req, res)=>{
 })
 
 /** Delete student */
-router.delete('/:student_number', async (req, res)=>{
+router.delete('/:student_number', authenticateToken, async (req, res)=>{
     try{
         let stud_num = req.params.student_number
         const connection = await mysql.createConnection(config);
@@ -107,7 +108,7 @@ router.delete('/:student_number', async (req, res)=>{
 })
 
 /** Update */
-router.put('/:student_number', async (req, res)=>{
+router.put('/:student_number', authenticateToken, async (req, res)=>{
     try{
         const student = {
             student_number : req.params.student_number,
