@@ -1,8 +1,8 @@
 var createError = require('http-errors');
 var express = require('express');
 
-var indexRouter = require('./routes/index');
-var scannerRouter = require('./routes/scanner');
+var indexRouter = require('./src/index');
+
 
 var app = express();
 
@@ -10,8 +10,7 @@ var app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use('/', indexRouter);
-app.use('/scan', scannerRouter);
+app.use('/api', indexRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

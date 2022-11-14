@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mysql = require('mysql')
-const config = require('../connection/connection');
+const config = require('../configs/connection');
 
 router.post('/', function(req,res){
     if(req.body.message == 'true'){
