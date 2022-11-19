@@ -13,7 +13,10 @@ router.post('/login', async (req, res) => {
     try {
         const connection = await mysql.createConnection(config);
         const sql = 'SELECT * FROM student WHERE student_number=? LIMIT 1';
+
+        //Very important to decrypt data first
         let {student_number, student_password} = data_decrypt(req.body.m)
+
         //Check if student Exist
         connection.query({
             sql: sql,
