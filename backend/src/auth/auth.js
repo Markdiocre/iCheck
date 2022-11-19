@@ -6,27 +6,27 @@ const SECRET_KEY = require('../configs/keys')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
-const { response_payload } = require('../methods/global')
+const { response_payload, data_encrypt, data_decrypt } = require('../methods/global')
 const { authenticateToken } = require('../middlewares/token')
 
 router.post('/login', async (req, res) => {
     try {
         const connection = await mysql.createConnection(config);
         const sql = 'SELECT * FROM student WHERE student_number=? LIMIT 1';
-
+        let {student_number, student_password} = data_decrypt(req.body.m)
         //Check if student Exist
         connection.query({
             sql: sql,
             timeout: 5000,
-            values: [req.body.student_number]
+            values: [student_number]
         }, async (error, results) => {
             if (error) {
-                res.status(400).send(response_payload(null, "Error", "Failed Query"))
+                res.status(400).send(data_encrypt(response_payload(null, "Error", "Failed Query")))
                 throw error;
             } else {
                 if (results.length != 0) {
                     // Compare tokens
-                    if (await bcrypt.compare(req.body.student_password, results[0].student_password)) {
+                    if (await bcrypt.compare(student_password, results[0].student_password)) {
                         const accessToken = jwt.sign({ student_number: req.body.student_number, student_password: req.body.student_password }, SECRET_KEY)
 
                         //Create Token
@@ -35,21 +35,21 @@ router.post('/login', async (req, res) => {
                         connection.query({
                             sql: createAccessTokenSQL,
                             timeout: 5000,
-                            values: [req.body.student_number, accessToken]
+                            values: [student_number, accessToken]
                         }, (error, results) => {
                             if (error) {
-                                res.status(400).send(response_payload(null, "Error", "Failed to Create Token"))
+                                res.status(400).send(data_encrypt(response_payload(null, "Error", "Failed to Log In")))
                                 throw error;
                             } else {
-                                res.status(200).send(response_payload({ token: accessToken }, "Success", "Token Created"))
+                                res.status(200).send(data_encrypt(response_payload({ token: accessToken }, "Success", "Successfully Logged in!")))
                             }
                         })
 
                     } else {
-                        res.status(403).send(response_payload(null, "Forbidden", "Password do not match"))
+                        res.status(403).send(data_encrypt(response_payload(null, "Forbidden", "Password do not match")))
                     }
                 } else {
-                    res.status(404).send(response_payload(null, "Error", "No Account"))
+                    res.status(404).send(data_encrypt(response_payload(null, "Error", "No Account")))
                 }
 
             }
