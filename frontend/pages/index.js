@@ -3,7 +3,9 @@ import { useEffect } from "react";
 import logo from "../public/iCheck-logo.png";
 import styles from "../styles/index.module.css";
 import React from "react";
+import Link from 'next/link'
 import { useState } from "react";
+
 
 const Viewport = ({ w }) => {
   if (w < 900) {
@@ -17,7 +19,7 @@ const Mobile = () => {
   return (
     <div className="">
       <div className={styles.Header}>
-        <Image src={logo} width={250} height={76} />
+        <Image src={logo} width={400} height={125} />
       </div>
       <div className={styles.outer}>
         <div className={styles.inner + " " + styles.cover}>
@@ -28,7 +30,9 @@ const Mobile = () => {
             type="password"
             placeholder="Password"
           />
-          <div className={styles.login_btn}>Login</div>
+          <div className={styles.login_btn}>
+            <Link href ="/home">Login</Link>
+            </div>
         </div>
       </div>
       <br />
@@ -94,6 +98,9 @@ const Desktop = () => {
               />
             </svg>
           </div>
+          <div className={styles.login_btn2}>
+            <Link href ="/home">Login</Link>
+            </div>
         </div>
       </div>
 

@@ -1,11 +1,11 @@
 var createError = require('http-errors');
 var express = require('express');
-
+var cors = require('cors')
 var indexRouter = require('./src/index');
 
 
 var app = express();
-
+app.use(cors())
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
