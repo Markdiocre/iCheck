@@ -15,7 +15,7 @@ router.post('/login', async (req, res) => {
         const sql = 'SELECT * FROM student WHERE student_number=? LIMIT 1';
 
         //Very important to decrypt data first
-        let {student_number, student_password} = data_decrypt(req.body.m)
+        let { student_number, student_password } = data_decrypt(req.body.m)
 
         //Check if student Exist
         connection.query({
@@ -30,26 +30,38 @@ router.post('/login', async (req, res) => {
                 if (results.length != 0) {
                     // Compare tokens
                     if (await bcrypt.compare(student_password, results[0].student_password)) {
-                        const accessToken = jwt.sign({ student_number: req.body.student_number, student_password: req.body.student_password }, SECRET_KEY)
-
-                        //Create Token
-                        const createAccessTokenSQL = 'INSERT INTO token(`student_number`,`token_value`) VALUES(?,?)';
+                        const checkIfTokenExist = 'SELECT * FROM token WHERE student_number=? LIMIT 1';
 
                         connection.query({
-                            sql: createAccessTokenSQL,
+                            sql: checkIfTokenExist,
                             timeout: 5000,
-                            values: [student_number, accessToken]
+                            values: [student_number]
                         }, (error, results) => {
-                            if (error) {
-                                res.status(400).send(data_encrypt(response_payload(null, "Error", "Failed to Log In")))
-                                throw error;
+                            if (results.length != 0) {
+                                res.status(200).send(data_encrypt(response_payload({ token: results[0].token_value }, "Welcome", "Successfully Logged in!")))
                             } else {
-                                res.status(200).send(data_encrypt(response_payload({ token: accessToken }, "Success", "Successfully Logged in!")))
+                                const createAccessTokenSQL = 'INSERT INTO token(`student_number`,`token_value`) VALUES(?,?)';
+                                const accessToken = jwt.sign({ student_number: req.body.student_number, student_password: req.body.student_password }, SECRET_KEY)
+
+                                connection.query({
+                                    sql: createAccessTokenSQL,
+                                    timeout: 5000,
+                                    values: [student_number, accessToken]
+                                }, (error, results) => {
+                                    if (error) {
+                                        res.status(400).send(data_encrypt(response_payload(null, "Error", "Failed to Log In")))
+                                        throw error;
+                                    } else {
+                                        res.status(200).send(data_encrypt(response_payload({ token: accessToken }, "Welcome", "Successfully Logged in!")))
+                                    }
+                                })
                             }
                         })
+                        //Create Token
+
 
                     } else {
-                        res.status(403).send(data_encrypt(response_payload(null, "Forbidden", "Password do not match")))
+                        res.status(403).send(data_encrypt(response_payload(null, "Error", "Student number or Password is incorrect")))
                     }
                 } else {
                     res.status(404).send(data_encrypt(response_payload(null, "Error", "No Account")))
