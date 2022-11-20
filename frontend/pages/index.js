@@ -3,9 +3,8 @@ import { useEffect } from "react";
 import logo from "../public/iCheck-logo.png";
 import styles from "../styles/index.module.css";
 import React from "react";
-import Link from 'next/link'
+import Link from "next/link";
 import { useState } from "react";
-
 
 const Viewport = ({ w }) => {
   if (w < 900) {
@@ -19,7 +18,13 @@ const Mobile = () => {
   return (
     <div className="">
       <div className={styles.Header}>
-        <Image src={logo} width={400} height={125} />
+        <Image
+          src={logo}
+          alt="missing logo"
+          // priority
+          width={400}
+          height={125}
+        />
       </div>
       <div className={styles.outer}>
         <div className={styles.inner + " " + styles.cover}>
@@ -31,8 +36,8 @@ const Mobile = () => {
             placeholder="Password"
           />
           <div className={styles.login_btn}>
-            <Link href ="/home">Login</Link>
-            </div>
+            <Link href="/home">Login</Link>
+          </div>
         </div>
       </div>
       <br />
@@ -46,7 +51,13 @@ const Desktop = () => {
       <div className={styles.front}>
         <div>
           <div>
-            <Image src={logo} width={250} height={76} />
+            <Image
+              src={logo}
+              alt="missing logo"
+              priority
+              width={250}
+              height={76}
+            />
           </div>
           <div className={styles.welcome}>
             <h2>WELCOME BACK GCIANS!</h2>
@@ -66,13 +77,13 @@ const Desktop = () => {
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
+              strokeWidth={1.5}
+              stroke={"currentColor"}
               className={styles.icon}
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
               />
             </svg>
@@ -87,20 +98,20 @@ const Desktop = () => {
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
+              strokeWidth={1.5}
+              stroke={"currentColor"}
               className={styles.icon}
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
               />
             </svg>
           </div>
           <div className={styles.login_btn2}>
-            <Link href ="/home">Login</Link>
-            </div>
+            <Link href="/home">Login</Link>
+          </div>
         </div>
       </div>
 
