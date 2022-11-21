@@ -10,6 +10,7 @@ const authRouter = require('./auth/auth');
 const studentRouter = require('./routes/student')
 const healthCheckRouter = require('./routes/health_check')
 
+
 /* GET home page. */
 // router.get('/', async function(req, res, next) {
 //   const connection = await mysql.createConnection(config);
