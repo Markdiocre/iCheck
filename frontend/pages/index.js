@@ -22,8 +22,8 @@ const Mobile = () => {
           src={logo}
           alt="missing logo"
           // priority
-          width={400}
-          height={125}
+          width={350}
+          height={100}
         />
       </div>
       <div className={styles.outer}>
@@ -36,12 +36,14 @@ const Mobile = () => {
             placeholder="Password"
           />
           <div className={styles.login_btn}>
-            <Link href="/home">Login</Link>
+            <Link href="/home" className={styles.link}>
+              Login
+            </Link>
           </div>
         </div>
       </div>
       <br />
-      <p className={styles.devs}>iCheck Web App v0.1.CodeDementia.2022</p>
+      <p className={styles.devs}>iCheck Web App v0.1.PhobusCalisto.2022</p>
     </div>
   );
 };
@@ -110,7 +112,9 @@ const Desktop = () => {
             </svg>
           </div>
           <div className={styles.login_btn2}>
-            <Link href="/home">Login</Link>
+            <Link href="/home" className={styles.link}>
+              Login
+            </Link>
           </div>
         </div>
       </div>
