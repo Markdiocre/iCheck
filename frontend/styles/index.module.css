@@ -18,6 +18,10 @@
   transition: all 0.5s ease-in;
   border-color: #00dda8;
 }
+.link {
+  color: #ffff;
+  text-decoration: none;
+}
 .form {
   gap: 20px;
   display: flex;
@@ -126,14 +130,15 @@
 
   .Header {
     background-color: #45fdba;
-  
+
     padding-top: 150px;
     padding-bottom: 100px;
     display: flex;
     justify-content: center;
   }
 }
-
+@media screen and (min-width: 300px) {
+}
 @media screen and (min-width: 900px) {
   .bgcontainer {
     --portrait_width: 50vh;
@@ -144,8 +149,7 @@
     top: 0px;
     z-index: -1;
   }
-  .login_btn2{
-  
+  .login_btn2 {
     background-color: rgb(00, 96, 96);
     color: white;
     text-align: center;
@@ -233,7 +237,7 @@
     color: #ffff;
     margin-left: 20%;
     margin-top: 80%;
-    width: 100%
+    width: 100%;
     /* margin-bottom: ; */
   }
 }
