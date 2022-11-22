@@ -1,10 +1,10 @@
 import ButtonformComponent from "../components/button";
 
-const test = () => {
+const Test = () => {
   return (
     <div>
       <ButtonformComponent />
     </div>
   );
 };
-export default test;
+export default Test;
