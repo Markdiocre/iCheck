@@ -20,7 +20,7 @@ const Mobile = () => {
         <div>
           <b>Alcantara J.</b>
         </div>
-        <a className={styles.logout} href="/index">
+        <Link className={styles.logout} href="/index">
           <Image
             src={logout}
             alt="logout icon"
@@ -28,7 +28,7 @@ const Mobile = () => {
             width={30}
             height={30}
           />
-        </a>
+        </Link>
       </div>
 
       <div className={styles.body1}>
