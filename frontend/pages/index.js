@@ -4,6 +4,8 @@ import logo from "../public/iCheck-logo.png";
 import styles from "../styles/index.module.css";
 import React from "react";
 import Link from "next/link";
+import Encrypt from "../function/encrypt";
+
 import { useState } from "react";
 
 const Viewport = ({ w }) => {
@@ -48,6 +50,8 @@ const Mobile = () => {
   );
 };
 const Desktop = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   return (
     <div style={{ height: "80vh" }}>
       <div className={styles.front}>
@@ -74,6 +78,8 @@ const Desktop = () => {
               type="email"
               className={styles.noinput}
               placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -95,6 +101,8 @@ const Desktop = () => {
               type="password"
               className={styles.noinput}
               placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -111,11 +119,18 @@ const Desktop = () => {
               />
             </svg>
           </div>
-          <div className={styles.login_btn2}>
-            <Link href="/home" className={styles.link}>
-              Login
-            </Link>
-          </div>
+          <button
+            className={styles.login_btn2 + " " + styles.link}
+            onClick={() => {
+              const obj = { student_number: email, student_password: password };
+              console.log(obj);
+              console.log(JSON.stringify(Encrypt(obj)));
+            }}
+          >
+            {/* <Link href="/home" className={styles.link}> */}
+            Login
+            {/* </Link> */}
+          </button>
         </div>
       </div>
 
@@ -140,16 +155,21 @@ const Desktop = () => {
 };
 
 export default function Home() {
-  const [width, SetWidth] = useState();
-  const [height, SetHeight] = useState();
-  React.useEffect(() => {
-    SetWidth(window.innerWidth);
-    SetHeight(window.innerHeight);
-    // const width = window.innerWidth;
-    console.log(width);
-  });
+  const [width, SetWidth] = useState(
+    React.useEffect(() => {
+      window.innerWidth;
+      // const width = window.innerWidth;
+      console.log(width);
+    })
+  );
+
   return (
     <div>
+      {/* <Head>
+        <title>Login Icheck</title>
+        <meta name="description" content="login form" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head> */}
       {/* <Desktop /> */}
       <Viewport w={width} />
     </div>
