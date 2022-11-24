@@ -6,6 +6,7 @@ import React from "react";
 import { useQRCode } from "next-qrcode";
 import back from "../public/back.png";
 import { useState } from "react";
+import Router from "next/router";
 
 const qrcode = JSON.stringify([
   {
@@ -154,6 +155,10 @@ const Desktop = () => {
 export default function Home() {
   const [width, SetWidth] = useState(
     React.useEffect(() => {
+      const islogin = localStorage.getItem("m");
+      if (islogin == null) {
+        Router.push("/home");
+      }
       window.innerWidth;
       // const width = window.innerWidth;
       console.log(width);

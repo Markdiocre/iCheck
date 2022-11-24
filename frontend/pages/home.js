@@ -5,6 +5,7 @@ import styles from "../styles/Home.module.css";
 import React from "react";
 import Link from "next/link";
 import ButtonformComponent from "../components/button";
+import Router from "next/router";
 
 const Viewport = ({ w }) => {
   if (w < 900) {
@@ -105,6 +106,10 @@ const Mobile = () => {
 
 export default function Home() {
   React.useEffect(() => {
+    const islogin = localStorage.getItem("m");
+    if (islogin == null) {
+      Router.push("/");
+    }
     const width = window.innerWidth;
     console.log(width);
   });
