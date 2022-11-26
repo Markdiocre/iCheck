@@ -12,22 +12,20 @@ router.post('/', async (req, res)=>{
     try{
         const decyphered = data_decrypt(req.body.m)
         const connection = await mysql.createConnection(config);
-        const sql = 'INSERT INTO health_check(`student_number`,`temp`,`fever`,`cough`,`body_pain`,`sore_throat`,`tiredness`,`headache`,`diarrhea`,`ageusia`,`anosmia`,`dyspnea`,`dizziness`,`cold`,`acquired_symptoms`,`covid_interaction`,`caring_infected_patient`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
+        const sql = 'INSERT INTO `health_check`(`student_number`, `temp`, `acquired_symptoms`, `covid_interaction`, `caring_infected_patient`, `fever`, `cold`, `body_pains`, `sore_throat`, `fatigue_or_tiredness`, `headache`, `diarrhea`, `loss_of_taste_or_smell`, `difficulty_breathing`, `dizziness`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
         const health_check = {
             student_number : decypheredstudent_number,
             temp : decyphered.temp,
             fever : decyphered.fever,
-            cough : decyphered.cough,
-            body_pain : decyphered.body_pain,
+            cold: decyphered.cold,
+            body_pains: decyphered.body_pains,
             sore_throat: decyphered.sore_throat,
-            tiredness : decyphered.tiredness,
-            headache : decyphered.headache,
-            diarrhea : decyphered.diarrhea,
-            ageusia : decyphered.ageusia,
-            anosmia : decyphered.anosmia,
-            dyspnea : decyphered.dyspnea,
-            dizziness : decyphered.dizziness,
-            cold : decyphered.cold,
+            fatigue_or_tiredness: decyphered.fatigue_or_tiredness,
+            headache: decyphered.headache,
+            diarrhea: decyphered.diarrhea,
+            loss_of_taste_or_smell: decyphered.loss_of_taste_or_smell,
+            difficulty_breathing: decyphered.difficulty_breathing,
+            dizziness: decyphered.dizziness,
             acquired_symptoms : decyphered.acquired_symptoms,
             covid_interaction : decyphered.covid_interaction,
             caring_infected_patient : decyphered.caring_infected_patient
@@ -36,7 +34,14 @@ router.post('/', async (req, res)=>{
         connection.query({
             sql: sql,
             timeout: 5000,
-            values: [health_check.student_number, health_check.temp, health_check.fever, health_check.cough, health_check.body_pain, health_check.sore_throat, health_check.tiredness,health_check.headache, health_check.diarrhea, health_check.ageusia, health_check.anosmia, health_check.dyspnea, health_check.dizziness, health_check.cold, health_check.acquired_symptoms, health_check.covid_interaction, health_check.caring_infected_patient]
+            values: [
+                health_check.student_number, health_check.temp, 
+                health_check.acquired_symptoms,
+                health_check.covid_interaction,
+                health_check.caring_infected_patient,health_check.fever,
+                health_check.cold, health_check.body_pains, health_check.sore_throat, health_check.fatigue_or_tiredness, health_check.headache, health_check.diarrhea, health_check.loss_of_taste_or_smell, health_check.difficulty_breathing, health_check.dizziness
+
+            ]
         }, function (error, results){
             if(error){
                 res.status(400).send(data_encrypt(response_payload(null, "Error", "Failed to Insert Data")))
