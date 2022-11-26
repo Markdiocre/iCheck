@@ -1,0 +1,11 @@
+.buttonborder {
+  text-align: center;
+  border-radius: 15px;
+  padding: 10px;
+}
+.buttonshort {
+  width: 46%;
+}
+.buttonlong {
+  width: 100%;
+}

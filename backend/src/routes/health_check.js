@@ -3,18 +3,18 @@ const config = require('../configs/connection');
 const express = require('express');
 const router = express.Router();
 
-
+const {authenticateToken} = require('../middlewares/token')
 const {response_payload, data_decrypt, data_encrypt} = require('../methods/global')
 
 
 /** INSERT DATA Health Check */
-router.post('/', async (req, res)=>{
+router.post('/', authenticateToken, async (req, res)=>{
     try{
         const decyphered = data_decrypt(req.body.m)
         const connection = await mysql.createConnection(config);
         const sql = 'INSERT INTO `health_check`(`student_number`, `temp`, `acquired_symptoms`, `covid_interaction`, `caring_infected_patient`, `fever`, `cold`, `body_pains`, `sore_throat`, `fatigue_or_tiredness`, `headache`, `diarrhea`, `loss_of_taste_or_smell`, `difficulty_breathing`, `dizziness`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
         const health_check = {
-            student_number : decypheredstudent_number,
+            student_number : decyphered.student_number,
             temp : decyphered.temp,
             fever : decyphered.fever,
             cold: decyphered.cold,
@@ -57,7 +57,7 @@ router.post('/', async (req, res)=>{
 })
 
 
-router.get('/', async (req, res)=>{
+router.get('/', authenticateToken, async (req, res)=>{
     try{
         const connection = await mysql.createConnection(config);
         const sql = 'SELECT * FROM health_check';
@@ -76,7 +76,7 @@ router.get('/', async (req, res)=>{
 })
 
 //SPECIFIC
-router.get('/:student_number', async (req, res)=>{
+router.get('/:student_number', authenticateToken, async (req, res)=>{
     try{
         let stud_num = req.params.student_number;
         const connection = await mysql.createConnection(config);
@@ -94,8 +94,5 @@ router.get('/:student_number', async (req, res)=>{
         res.status(500).send(data_encrypt(response_payload(null, "Error", "Server Crashed")))
     }
 })
-
-
-
 
 module.exports = router;
