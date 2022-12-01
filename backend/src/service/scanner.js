@@ -19,13 +19,13 @@ router.post("/", async (req, res) => {
             },
             function (error, result) {
                 if (error) {
-                    res.send({ message: "Error: Cannot enter token is unrecognizable" });
+                    res.send({ message: "Error: Cannot enter, token is unrecognizable" });
                 } else {
                     if (result.length == 1) {
                         const insertSql =
-                            "INSERT INTO `health_check`(`student_number`, `temp`, `acquired_symptoms`, `covid_interaction`, `caring_infected_patient`, `fever`, `cold`, `body_pains`, `sore_throat`, `fatigue_or_tiredness`, `headache`, `diarrhea`, `loss_of_taste_or_smell`, `difficulty_breathing`, `dizziness`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                            "INSERT INTO `health_check`(`student_number`, `temp`, `acquired_symptoms`, `covid_interaction`, `caring_infected_patient`, `fever`, `cold`, `body_pains`, `sore_throat`, `fatigue_or_tiredness`, `headache`, `diarrhea`, `loss_of_taste_or_smell`, `difficulty_breathing`, `dizziness`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
                         const health_check = {
-                            student_number: decyphered.student_number,
+                            student_number: result[0].student_number,
                             temp: decyphered.temp,
                             fever: decyphered.fever,
                             cold: decyphered.cold,
@@ -41,7 +41,7 @@ router.post("/", async (req, res) => {
                             covid_interaction: decyphered.covid_interaction,
                             caring_infected_patient: decyphered.caring_infected_patient
                         };
-                        if (health_check.temp <= 37.5 || health_check.temp >= 35.5) {
+                        if (health_check.temp >= 37.5 || health_check.temp <= 35.5) {
                             res.send({ message: "not ok" });
                         } else if (
                             health_check.fever == 0 &&

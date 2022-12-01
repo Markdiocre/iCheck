@@ -28,6 +28,9 @@ router.post('/login', async (req, res) => {
                 throw error;
             } else {
                 if (results.length != 0) {
+                    let name = results[0].student_fname + ' ' + results[0].student_lname
+                    let number = results[0].student_number
+
                     // Compare tokens
                     if (await bcrypt.compare(student_password, results[0].student_password)) {
                         const checkIfTokenExist = 'SELECT * FROM token WHERE student_number=? LIMIT 1';
@@ -52,7 +55,7 @@ router.post('/login', async (req, res) => {
                                         res.status(400).send(data_encrypt(response_payload(null, "Error", "Failed to Log In")))
                                         throw error;
                                     } else {
-                                        res.status(200).send(data_encrypt(response_payload({ token: accessToken }, "Welcome", "Successfully Logged in!")))
+                                        res.status(200).send(data_encrypt(response_payload({ token: accessToken, student_name: name, student_number: number }, "Welcome", "Successfully Logged in!")))
                                     }
                                 })
                             }
@@ -83,6 +86,9 @@ router.delete('/logout', authenticateToken, async (req, res) => {
     try {
         const connection = await mysql.createConnection(config);
         const sql = 'DELETE FROM token WHERE token_value=?';
+        const header = req.headers.authorization
+        const [_, token] = header.split(' ')
+
         connection.query({
             sql: sql,
             timeout: 5000,
@@ -90,18 +96,18 @@ router.delete('/logout', authenticateToken, async (req, res) => {
         }, (error, results) => {
             if (results.length != 0) {
                 if (error) {
-                    res.status(400).send(response_payload(null, "Error", "Failed to Delete Token"))
+                    res.status(400).send(data_encrypt(response_payload(null, "Error", "Failed to Delete Token")))
                     throw error;
                 } else {
-                    res.status(200).send(response_payload(null, "Success", "Token Deleted"))
+                    res.status(200).send(data_encrypt(response_payload(null, "Success", "Token Deleted")))
                 }
             } else {
-                res.status(404).send(response_payload(null, "Error", "No Account"))
+                res.status(404).send(data_encrypt(response_payload(null, "Error", "No Account")))
             }
 
         })
     } catch {
-        res.status(500).send(response_payload(null, "Error", "Server Crashed"))
+        res.status(500).send(data_encrypt(response_payload(null, "Error", "Server Crashed")))
     }
 
 })
