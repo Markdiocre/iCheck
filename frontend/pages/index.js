@@ -179,19 +179,20 @@ const Desktop = () => {
 };
 
 export default function Home() {
-  const [width, SetWidth] = useState(
-    React.useEffect(() => {
-      const islogin = localStorage.getItem("m");
-      if (islogin != null) {
-        Router.push("/home");
-      }
-      window.innerWidth;
-      SetWidth(window.innerWidth);
-      // const width = window.innerWidth;
-      // console.log(width);
-    })
-  );
-
+  const [width, SetWidth] = useState();
+  const handleResize = () => {
+    SetWidth(window.innerWidth);
+  };
+  React.useEffect(() => {
+    const islogin = localStorage.getItem("m");
+    if (islogin != null) {
+      Router.push("/home");
+    }
+    SetWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    // const width = window.innerWidth;
+    // console.log(width);
+  });
   return (
     <div>
       {/* <Desktop /> */}

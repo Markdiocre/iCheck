@@ -7,6 +7,7 @@ import Link from "next/link";
 import ButtonformComponent from "../components/button";
 import Router from "next/router";
 
+import { useState } from "react";
 const Viewport = ({ w }) => {
   if (w < 900) {
     console.log(w);
@@ -21,7 +22,11 @@ const Mobile = () => {
         <div>
           <b>Alcantara J.</b>
         </div>
-        <Link className={styles.logout} href="/index">
+        <Link
+          className={styles.logout}
+          href="/"
+          onClick={() => localStorage.removeItem("m")}
+        >
           <Image
             src={logout}
             alt="logout icon"
@@ -105,13 +110,18 @@ const Mobile = () => {
 };
 
 export default function Home() {
+  const [width, SetWidth] = useState();
+  const handleResize = () => {
+    SetWidth(window.innerWidth);
+  };
+
   React.useEffect(() => {
     const islogin = localStorage.getItem("m");
     if (islogin == null) {
       Router.push("/");
     }
-    const width = window.innerWidth;
-    console.log(width);
+    SetWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
   });
   return (
     <div>
