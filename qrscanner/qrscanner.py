@@ -7,13 +7,15 @@ import json
 from playsound import playsound
 
 def check_qr(qr_data):
-    base_url = 'http://localhost:3000/scan'
+    base_url = 'http://localhost:4000/api/scan'
     r = requests.post(base_url,json=json.loads(qr_data))
-    
+
     if json.loads(r.text)["message"] == 'ok':
     	playsound('in.mp3')
     else:
         playsound('out.mp3')
+
+    print(json.loads(qr_data))
 
 def main():
     cap = cv.VideoCapture(0)
