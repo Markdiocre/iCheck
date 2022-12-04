@@ -15,7 +15,7 @@ def check_qr(qr_data):
     else:
         playsound('out.mp3')
 
-    print(json.loads(qr_data))
+    print(json.loads(r.text)["message"])
 
 def main():
     cap = cv.VideoCapture(0)
@@ -47,10 +47,10 @@ def main():
             # pts = pts.reshape((-1,1,2))
             # cv.polylines(frame,[pts],True,(255,0,255),5)
 
-
+        img_gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
 
         # Display the resulting frame
-        cv.imshow('Scanner', frame)
+        cv.imshow('Scanner', img_gray)
         if cv.waitKey(1) == ord('q'):
             break
     # When everything done, release the capture
