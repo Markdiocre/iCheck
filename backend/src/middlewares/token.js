@@ -7,12 +7,13 @@ const { response_payload } = require('../methods/global')
 async function authenticateToken(req, res, next) {
     try {
         const connection = await mysql.createConnection(config);
-        const sql = 'SELECT * FROM token WHERE `token_value` = ?';
+        const sql = 'SELECT * FROM token WHERE token_value = ?';
         const header = req.headers.authorization
         if (header) {
             const [keyword, token] = header.split(' ')
-            if (keyword !== 'Bearer') {
-                res.status(403).send(data_encrypt(response_payload(null, "Error", "Invalid Token")))
+            console.log(keyword)
+            if (keyword != 'Bearer') {
+                res.status(403).send(data_encrypt(response_payload(null, "Error", "Token Invalid")))
             } else {
                 connection.query({
                     sql: sql,

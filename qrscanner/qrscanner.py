@@ -12,13 +12,15 @@ proxy = {
 }
 
 def check_qr(qr_data):
-    base_url = 'http://localhost:4000/api/scan/'
-    r = requests.post(base_url,json=json.loads(qr_data), verify=False, proxies=urllib.request.getproxies())
-    
+    base_url = 'http://localhost:4000/api/scan'
+    r = requests.post(base_url,json=json.loads(qr_data))
+
     if json.loads(r.text)["message"] == 'ok':
     	playsound('in.mp3')
     else:
         playsound('out.mp3')
+
+    print(json.loads(r.text)["message"])
 
 def main():
     cap = cv.VideoCapture(0)
@@ -59,11 +61,11 @@ def main():
 
 
 
-        gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
-        # all_black = cv.threshold(gray, 127, 255, cv.THRESH_BINARY)
+        img_gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
 
         # Display the resulting frame
-        cv.imshow('Scanner', gray)
+        cv.imshow('Scanner', img_gray)
+
         if cv.waitKey(1) == ord('q'):
             break
     # When everything done, release the capture
