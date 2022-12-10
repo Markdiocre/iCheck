@@ -1,5 +1,8 @@
 .buttonborder {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   border-radius: 15px;
   padding: 10px;
 }
@@ -7,5 +10,18 @@
   width: 46%;
 }
 .buttonlong {
-  width: 100%;
+  width: 94%;
 }
+
+.yes {
+  color: black;
+}
+
+.no {
+  color: white;
+}
+
+.nomargin {
+  margin: 3px;
+}
+

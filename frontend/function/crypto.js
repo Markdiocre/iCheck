@@ -1,7 +1,7 @@
 import CryptoJS from "crypto-js";
 import SECRET_KEY from "./key";
 
-const data_encrypt = (plain) => {
+function data_encrypt (plain)  {
   const ciphertext = CryptoJS.AES.encrypt(
     JSON.stringify(plain),
     SECRET_KEY
@@ -10,7 +10,7 @@ const data_encrypt = (plain) => {
   // return { m: ciphertext };
 };
 
-const data_decrypt = (enc) => {
+function data_decrypt (enc) {
   const bytes = CryptoJS.AES.decrypt(enc, SECRET_KEY);
   const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
   return decryptedData;

@@ -1,19 +1,27 @@
 import Image from "next/image";
+import React, { useEffect, useState } from "react";
 import logo from "../public/iCheck-logo.png";
 import logout from "../public/logout.png";
 import styles from "../styles/Home.module.css";
-import React from "react";
 import Link from "next/link";
 import ButtonformComponent from "../components/button";
 import Router from "next/router";
 
-const Viewport = ({ w }) => {
-  if (w < 900) {
-    console.log(w);
-    return Mobile;
-  }
-};
+
 const Mobile = () => {
+  const [temperature, setTemperature] = useState("")
+  const [error, setError] = useState(false)
+
+  const handleSubmit=(e)=>{
+    e.preventDefault();
+    if(temperature.length==0){
+      setError(true)
+    }
+    if(temperature){
+      console.log("Temperature: ", temperature)
+    }
+  }
+
   return (
     <div className={styles.body}>
       <div className={styles.Header2}>
@@ -47,9 +55,8 @@ const Mobile = () => {
           <div>
             <ButtonformComponent />
 
-            {/*STILL NEEDS NEXT.JS VALIDATION*/}
             <div className={styles.tempdiv}>
-              <form className={styles.tempformdiv} action="/send-data-here">
+              <form className={styles.tempformdiv} action="/send-data-here" onSubmit={handleSubmit}>
                 <label className={styles.label}>
                   Input Current Temperature
                 </label>
@@ -59,11 +66,13 @@ const Mobile = () => {
                   type="number"
                   id="temperature"
                   name="temperature"
-                  minLength="2"
-                  maxLength="10"
                   required
+                  value={temperature}
                   placeholder="In Celcius"
+                  onChange={(e) => setTemperature(e.target.value)}
                 />
+                {error&&temperature.length<=0?
+                <label className={styles.label}>Temperature Can't Be Empty</label>:""}
               </form>
             </div>
           </div>
@@ -96,7 +105,7 @@ const Mobile = () => {
         <div></div>
       </div>
       <div className={styles.Submitbg}>
-        <button className={styles.Submit}>
+        <button className={styles.Submit} onSubmit={handleSubmit}>
           <Link href="/qrcode">Submit</Link>
         </button>
       </div>
