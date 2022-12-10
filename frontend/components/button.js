@@ -66,21 +66,21 @@ const ButtonformComponent = () => {
     {
       id: 10,
       sickness: "Did you have any of the symptoms above in the last 3 days",
-      isshort: true,
+      isshort: false,
       sick: true,
     },
     {
       id: 11,
       sickness:
         "Have you had face-to-face contact with a probable or comfirmed Covid 19 case within 1 meter and for more than 15 minutes for the past 14 days?",
-      isshort: false,
+      isshort: true,
       sick: true,
     },
     {
       id: 12,
       sickness:
         "Have you provided direct care for a patient with probable or confirmed COVID 19 case without using proper personal protective equipment for the past 14 days?",
-      isshort: false,
+      isshort: true,
       sick: true,
     },
   ]);
@@ -112,7 +112,12 @@ const ButtonformComponent = () => {
             }}
           >
             {obj.sickness}
-            {obj.sick ? <p>YES</p> : <p>NO</p>}
+
+            {obj.sick ? (
+              <p className={styles.yes + " " + styles.nomargin}>YES</p>
+            ) : (
+              <p className={styles.no + " " + styles.nomargin}>NO</p>
+            )}
           </div>
         );
       })}
