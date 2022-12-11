@@ -76,7 +76,7 @@ router.post('/login', async (req, res) => {
 
 
     } catch {
-        res.status(500).send(response_payload(null, "Error", "Server Crashed"))
+        res.status(500).send(data_encrypt(response_payload(null, "Error", "Server Crashed")))
     }
 
 })
